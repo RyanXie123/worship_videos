@@ -1,0 +1,20 @@
+# 忽略生成的构建文件
+/dist/
+/build/
+
+# 忽略依赖包文件夹
+/node_modules/
+
+# 忽略环境配置文件
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 忽略日志文件
+/logs/
+
+# 忽略编辑器配置文件
+.vscode/
+.idea/
+上述示例包
