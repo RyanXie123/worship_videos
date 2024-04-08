@@ -149,7 +149,7 @@ export default {
         // var url =  join(this.host,"d",this.currentPath,video.name);
         var url = this.videoPathPrefix + this.currentPath + "/" + video.name;
 
-        this.$router.push({ name: 'VideoPlayer', query: { video: video.name, page: 1, video_url: url } });
+        this.$router.push({ name: 'VideoPlayer', query: { video: video.name, page: 1, video_url: url, album_path:this.currentPath } });
       }
     },
   },

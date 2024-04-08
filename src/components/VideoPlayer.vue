@@ -90,6 +90,9 @@ export default {
   /* width: 100%; */
   width: 100%;
   height: 250px;
+  position: fixed;
+    top: 20; /* You can adjust the top, right, bottom, or left values to position it where you want */
+    left: 0;
   /* 可根据需要设置容器高度 */
   /* height: 0; */
   /* padding-bottom: 计算得到的百分比值(例如16:9的视频是56.25%) */
