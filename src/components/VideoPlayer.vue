@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       videoUrl: '', // 视频的URL
+      picPathPrefix: 'https://video.jiuxingtang.online/pic/',
     };
   },
   created() {
@@ -46,7 +47,13 @@ export default {
       // this.video = JSON.parse(videoData);
       this.videoUrl = this.$route.query.video_url;
       console.log(this.videoUrl);
-      var thumbUrl = encodeURI(this.videoUrl.replace('.mp4', '.webp'));
+      const lastIndex = this.videoUrl.lastIndexOf('/');
+      var thumbUrl = '';
+      if(lastIndex > 0) {
+        thumbUrl = encodeURIComponent(this.picPathPrefix + this.videoUrl.substring(lastIndex + 1).replace('.mp4', '.jpg')) ;
+      }
+
+      
       console.log(thumbUrl);
       var art = new Artplayer({
         container: '.video-player',

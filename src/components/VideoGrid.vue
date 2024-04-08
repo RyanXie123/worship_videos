@@ -1,7 +1,7 @@
 <template>
   <div class="video-grid">
     <div class="video-item" v-for="video in videos" :key="video.name" @click="navigateToVideo(video)">
-      <img :src="getThumbnail(video)" alt="Video Thumbnail" class="video-thumbnail" />
+      <img :src="getThumbnail(video)" alt="Video Thumbnail" class="video-thumbnail" width="200" height="150" />
       <div class="video-info">
         <h3 class="video-name">{{ getVideoName(video) }}</h3>
         <!-- <p class="video-date">Created: {{ formatDate(video.created) }}</p> -->
@@ -20,11 +20,11 @@ export default {
       thumbs: [],
       host: 'https://alpha.jiuxingtang.online/',
       apiPath: 'api/fs/list',
-      
       // currentPath:'/tianyi/study/赞美/赞美之泉/讚美之泉敬拜讚美專輯(01) 讓讚美飛揚 Let Praise Arise',
       currentPath: '/赞美/',
-      indexPath: '/赞美/',
-      picPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
+      indexPath: '/赞美/赞美之泉发行专辑/',
+      videoPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
+      picPathPrefix: 'https://video.jiuxingtang.online/pic/',
     };
   },
   watch: {
@@ -72,6 +72,17 @@ export default {
       } else {
         this.currentPath = this.indexPath;
       }
+
+      const regex = /\/([^/]+)\/$/;
+      const match = this.currentPath.match(regex);
+
+      if (match && match[1]) {
+        const result = match[1];
+        document.title = result;
+      } else {
+        console.log('未找到匹配的字符串');
+      }
+
       const requestData = {
         path: this.currentPath,
         password: "",
@@ -103,7 +114,7 @@ export default {
           // if (this.$route.query.scrollToTop) {
           //   this.scrollToTop();
           // }
-          //this.scrollToTop();
+          this.scrollToTop();
         })
         .catch(error => {
           console.error(error);
@@ -111,18 +122,16 @@ export default {
     },
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
-  
-        var thumbNail = "";
-        for (var i = 0; i < this.thumbs.length; i++) {
-          if (this.thumbs[i].name.includes(videoName)) {
-            thumbNail = this.picPathPrefix + this.currentPath + "/" + this.thumbs[i].name;
-            break;
-          }
-        }
-        if(thumbNail == "") {
-          thumbNail = "https://router.xieru.fun:12315/d/tianyi/projects/thumbs/%E5%AE%89%E9%9D%99%E7%B3%BB%E5%88%97.jpg";
-        }
-        return thumbNail;
+      return this.picPathPrefix + videoName + ".jpg";
+      // if(video.is_dir)
+      // {
+      //   return "https://router.xieru.fun:12315/d/tianyi/projects/thumbs/%E5%AE%89%E9%9D%99%E7%B3%BB%E5%88%97.jpg";
+      // }
+      // else
+      // {
+      //   return this.picPathPrefix + videoName + ".jpg";
+      // }
+      
 
     },
 
@@ -138,7 +147,7 @@ export default {
         console.log('push');
         console.log(this.$router);
         // var url =  join(this.host,"d",this.currentPath,video.name);
-        var url = this.picPathPrefix + this.currentPath + "/" + video.name;
+        var url = this.videoPathPrefix + this.currentPath + "/" + video.name;
 
         this.$router.push({ name: 'VideoPlayer', query: { video: video.name, page: 1, video_url: url } });
       }
@@ -177,7 +186,7 @@ export default {
 
 .video-name {
   font-size: 12px;
-  font-weight: normal;
+  font-weight: 600;
 }
 
 .video-date,

@@ -7,7 +7,7 @@
       <button @click="share"><i class="fas fa-share"></i></button>
     </div>
     <div class="nav-text">
-      <button class="nav-button" @click="handleButtonClick">奉献支持</button>
+      <!-- <button class="nav-button" @click="handleButtonClick">奉献支持</button> -->
     </div>
   </div>
 </template>
