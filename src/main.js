@@ -11,13 +11,17 @@ const router = createRouter({
   routes: [
     // 这里添加你的路由规则
     {
-        path: '/video',
+        path: '/video_player/:video_file_fath',
         name: 'VideoPlayer',
-        component: VideoPlayer,
-        params:true
+        component: VideoPlayer
     },
     {
-        path:'/',
+      path: '/',
+      name:'home',
+      component:VideoGrid
+    },
+    {
+        path:'/video_list/:folder_path_base64',
         name: 'VideoGrid',
         component:VideoGrid
     }

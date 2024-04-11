@@ -19,13 +19,13 @@ export default {
     return {
       videoUrl: '', // 视频的URL
       picPathPrefix: 'https://video.jiuxingtang.online/pic/',
+      videoPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
     };
   },
   created() {
 
   },
   mounted() {
-    console.log(this.$route.query);
     // 在组件挂载后，解析视频信息并获取视频的URL
     console.log("video-player mounted");
     this.parseVideoInfo();
@@ -45,16 +45,17 @@ export default {
       // 解析视频信息
       // const videoData = this.$route.params.video;
       // this.video = JSON.parse(videoData);
-      this.videoUrl = this.$route.query.video_url;
-      console.log(this.videoUrl);
-      const lastIndex = this.videoUrl.lastIndexOf('/');
-      var thumbUrl = '';
-      if(lastIndex > 0) {
-        thumbUrl = encodeURIComponent(this.picPathPrefix + this.videoUrl.substring(lastIndex + 1).replace('.mp4', '.jpg')) ;
-      }
+      var video_file_path = decodeURIComponent(this.$route.params.video_file_fath);
+      console.log("video file path: " + video_file_path);
+      this.videoUrl = this.videoPathPrefix + video_file_path + '.mp4';
+      console.log("video url: " + this.videoUrl);
+      // const lastIndex = this.videoUrl.lastIndexOf('/');
+      // var thumbUrl = '';
+      // if(lastIndex > 0) {
+      //   thumbUrl = encodeURIComponent(this.picPathPrefix + this.videoUrl.substring(lastIndex + 1).replace('.mp4', '.jpg')) ;
+      // }
 
-      
-      console.log(thumbUrl);
+
       var art = new Artplayer({
         container: '.video-player',
         url: this.videoUrl,
@@ -66,7 +67,7 @@ export default {
         fullscreenWeb:true,
         pip:true,
         autoplay: true,
-        poster: thumbUrl,
+        // poster: thumbUrl,
         moreVideoAttr: {
       // @ts-ignore
       "webkit-playsinline": true,

@@ -67,8 +67,10 @@ export default {
       });
     },
     resetData() {
-      if (this.$route.query && this.$route.query.folder_path) {
-        this.currentPath = this.$route.query.folder_path;
+      if (this.$route.params && this.$route.params.folder_path_base64) {
+        console.log(this.$route.params.folder_path_base64);
+        this.currentPath = decodeURIComponent(this.$route.params.folder_path_base64);
+        console.log(this.currentPath);
       } else {
         this.currentPath = this.indexPath;
       }
@@ -123,33 +125,26 @@ export default {
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
       return this.picPathPrefix + videoName + ".jpg";
-      // if(video.is_dir)
-      // {
-      //   return "https://router.xieru.fun:12315/d/tianyi/projects/thumbs/%E5%AE%89%E9%9D%99%E7%B3%BB%E5%88%97.jpg";
-      // }
-      // else
-      // {
-      //   return this.picPathPrefix + videoName + ".jpg";
-      // }
-      
-
     },
-
     getVideoName(video) {
       return video.name.replace(/\.mp4$/, "");
     },
     navigateToVideo(video) {
       console.log(video)
       if (video.is_dir) {
-        console.log("xxx")
-        this.$router.push({ name: 'VideoGrid', query: { folder_path: this.currentPath + video.name + '/' ,scrollToTop: true} });
+        var dest_folder_path = this.currentPath + video.name + '/';
+        console.log(dest_folder_path);
+        //base64
+        var path_base64 = encodeURIComponent(dest_folder_path);
+        this.$router.push({path:`/video_list/${path_base64}`});
       } else {
         console.log('push');
         console.log(this.$router);
-        // var url =  join(this.host,"d",this.currentPath,video.name);
-        var url = this.videoPathPrefix + this.currentPath + "/" + video.name;
 
-        this.$router.push({ name: 'VideoPlayer', query: { video: video.name, page: 1, video_url: url, album_path:this.currentPath } });
+        var video_file_path = this.currentPath + "/" + video.name;
+        video_file_path = video_file_path.replace('.mp4', '');
+        var video_file_path_encoded = encodeURIComponent(video_file_path);
+        this.$router.push({path:`/video_player/${video_file_path_encoded}`});
       }
     },
   },
