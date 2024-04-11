@@ -36,24 +36,6 @@ export default {
   ,
   mounted() {
     this.resetData();
-    // if(this.$route.query && this.$route.query.folder_path) {
-    //   this.currentPath = this.$route.query.folder_path;
-    // }
-    // const requestData = {
-    //   path: this.currentPath,
-    //   password: "",
-    //   page: 1,
-    //   per_page: 0,
-    //   refresh: false
-    // };
-
-    // axios.post(this.host+this.apiPath, requestData)
-    //   .then(response => {
-    //     this.videos = response.data.data.content;
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
   },
   methods: {
     formatDate(dateString) {
@@ -69,7 +51,7 @@ export default {
     resetData() {
       if (this.$route.params && this.$route.params.folder_path_base64) {
         console.log(this.$route.params.folder_path_base64);
-        this.currentPath = decodeURIComponent(this.$route.params.folder_path_base64);
+        this.currentPath = this.diyDecodePaht(this.$route.params.folder_path_base64);
         console.log(this.currentPath);
       } else {
         this.currentPath = this.indexPath;
@@ -129,13 +111,20 @@ export default {
     getVideoName(video) {
       return video.name.replace(/\.mp4$/, "");
     },
+    diyEncodePath(path) {
+      return encodeURIComponent(path.replaceAll('/', '___').replaceAll(' ', 'xxx'));
+    },
+    diyDecodePaht(path)
+    {
+      return decodeURIComponent(path).replaceAll('___', '/').replaceAll('xxx', ' ');
+    },
     navigateToVideo(video) {
       console.log(video)
       if (video.is_dir) {
         var dest_folder_path = this.currentPath + video.name + '/';
         console.log(dest_folder_path);
         //base64
-        var path_base64 = encodeURIComponent(dest_folder_path);
+        var path_base64 = this.diyEncodePath(dest_folder_path);
         this.$router.push({path:`/video_list/${path_base64}`});
       } else {
         console.log('push');

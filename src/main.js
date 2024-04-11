@@ -8,10 +8,11 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 const router = createRouter({
   history: createWebHistory(),
+  mode: 'history',
   routes: [
     // 这里添加你的路由规则
     {
-        path: '/video_player/:video_file_fath',
+        path: '/video_player/:video_file_fath(.*)',
         name: 'VideoPlayer',
         component: VideoPlayer
     },
@@ -21,10 +22,11 @@ const router = createRouter({
       component:VideoGrid
     },
     {
-        path:'/video_list/:folder_path_base64',
+        path:'/video_list/:folder_path_base64(.*)',
         name: 'VideoGrid',
         component:VideoGrid
-    }
+    },
+    { path: '/:pathMatch(.*)*', component:VideoGrid } // 捕获所有未匹配的路由并重定向到主页
   ]
 });
 
