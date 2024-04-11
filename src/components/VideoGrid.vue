@@ -49,9 +49,9 @@ export default {
       });
     },
     resetData() {
-      if (this.$route.params && this.$route.params.folder_path_base64) {
-        console.log(this.$route.params.folder_path_base64);
-        this.currentPath = this.diyDecodePaht(this.$route.params.folder_path_base64);
+      if (this.$route.query && this.$route.query.folder_path_base64) {
+        console.log(this.$route.query.folder_path_base64);
+        this.currentPath = this.diyDecodePaht(this.$route.query.folder_path_base64);
         console.log(this.currentPath);
       } else {
         this.currentPath = this.indexPath;
@@ -125,7 +125,8 @@ export default {
         console.log(dest_folder_path);
         //base64
         var path_base64 = this.diyEncodePath(dest_folder_path);
-        this.$router.push({path:`/video_list/${path_base64}`});
+        // this.$router.push({path:`/video_list/${path_base64}`});
+        this.$router.push({ name: 'VideoGrid', query: { folder_path_base64: path_base64} });
       } else {
         console.log('push');
         console.log(this.$router);

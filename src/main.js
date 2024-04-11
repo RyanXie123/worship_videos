@@ -22,7 +22,7 @@ const router = createRouter({
       component:VideoGrid
     },
     {
-        path:'/video_list/:folder_path_base64(.*)',
+        path:'/video_list',
         name: 'VideoGrid',
         component:VideoGrid
     },
