@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
-const command = 'yt-dlp --flat-playlist --skip-download --print-json "https://www.youtube.com/@StreamOfPraise/playlists"';
+const command = 'yt-dlp --flat-playlist --skip-download --print-json "https://www.youtube.com/@ROLCCmedia/playlists"';
 const options = { encoding: 'utf8' };
 const { exec } = require('child_process');
 try {
@@ -23,6 +23,11 @@ try {
     for (const playlist of playlists) {
         console.log(playlist.url);
         const url = playlist.url;
+        console.log(playlist.title);
+        if(!playlist.title.includes('生命河敬拜')) {
+            continue;
+        }
+        
         //var cmd = `yt-dlp -f 'bestaudio[ext=mp3]' --extract-audio --audio-format mp3 --add-metadata --geo-bypass -o "%(uploader)s/%(title)s.%(ext)s" "${url}"`;
         //var cmd = `yt-dlp -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b" -o "./video/%(uploader)s/%(playlist)s/%(title)s.%(ext)s" "${url}"`
         //var cmd = `yt-dlp -o "./video/%(uploader)s/%(playlist)s/%(title)s.%(ext)s" "${url}"`

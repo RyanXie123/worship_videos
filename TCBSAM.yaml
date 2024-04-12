@@ -1,0 +1,47 @@
+TCBSAMFormatVersion: '2020-06-15'
+License: MIT
+Description: 基于 CloudBase Framework 构建
+Category: CloudApp
+Tags: []
+SourceUrl: 'https://github.com/Tencent/cloudbase-framework'
+ReleaseNotesUrl: 'https://github.com/Tencent/cloudbase-framework/releases'
+IconUrl: >-
+  https://main.qcloudimg.com/raw/f87b49914efe502722f9aa128f5d8865/hello_world.svg
+IntroUrl: 'https://cloud.tencent.com/document/product/876/44547'
+ChangeLog:
+  - Title: 1.0.0
+    Content:
+      - 初次发布
+Author:
+  AuthorName: Tencent CloudBase
+  Email: cloudbase@tencent.com
+  Url: 'https://github.com/Tencent/cloudbase-framework'
+Contributors:
+  - AuthorName: Tencent CloudBase
+    Email: cloudbase@tencent.com
+    Url: 'https://github.com/Tencent/cloudbase-framework'
+Name: vue-hello-world
+Version: 1.0.0
+DisplayName: vue-hello-world
+Globals:
+  Environment:
+    Variables: {}
+SourceDir: .
+EnvType: PrePay
+Resources:
+  Website:
+    Type: 'CloudBase::StaticStore'
+    Properties:
+      Description: 为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。
+      CodeUri: 'extension://cc74839c45dd4526b6ec494df855fa44.zip'
+      DeployPath: /
+  ConfigEnv:
+    Type: 'CloudBase::StaticStore'
+    Properties:
+      Description: 配置文件
+      CodeUri: 'extension://bcc0f256a6c74ca298d0e4c813b06b0c.zip'
+      DeployPath: /
+EntryPoint:
+  - Label: 网站入口
+    EntryType: StaticStore
+    HttpEntryPath: /

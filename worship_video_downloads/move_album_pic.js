@@ -72,4 +72,4 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
   });
 }
 
-copyJpgFilesToAnotherFolder('F:\\worship_videos\\video\\赞美之泉发行专辑','C:\\UGit\\worship_videos\\dist\\pic');
+copyJpgFilesToAnotherFolder('C:\\UGit\\worship_videos\\worship_video_downloads\\video\\生命河 ROLCCmedia','C:\\UGit\\worship_videos\\public\\pic');

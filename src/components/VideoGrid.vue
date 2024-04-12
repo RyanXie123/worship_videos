@@ -22,7 +22,7 @@ export default {
       apiPath: 'api/fs/list',
       // currentPath:'/tianyi/study/赞美/赞美之泉/讚美之泉敬拜讚美專輯(01) 讓讚美飛揚 Let Praise Arise',
       currentPath: '/赞美/',
-      indexPath: '/赞美/赞美之泉发行专辑/',
+      indexPath: '/赞美/',
       videoPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
       picPathPrefix: 'https://video.jiuxingtang.online/pic/',
     };
