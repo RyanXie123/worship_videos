@@ -2,7 +2,7 @@ import os
 import opencc
 from PIL import Image
 # 定义要处理的文件夹路径
-folder_path = 'video\赞美之泉发行专辑'
+folder_path = 'C:\\UGit\\worship_videos\\worship_video_downloads\\video'
 
 # 创建 OpenCC 实例，用于繁简体转换
 converter = opencc.OpenCC('tw2s')
@@ -20,6 +20,7 @@ def convert_filenames(folder_path):
             new_dir_path = os.path.join(root, new_dir_name)
             # 重命名子文件夹
             os.rename(dir_path, new_dir_path)
+            convert_filenames(new_dir_path)
 
         # 遍历子文件
         for file_name in files:

@@ -64,12 +64,12 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
       const newFile = file.replace('.webp', '.jpg');
       const newPath = path.join(destDir, newFile);
       convertWebpToJpg(filePath, newPath);
-    } else if (file.endsWith('.jpg') && (file.startsWith('00-') || file.startsWith('0-'))) {
-      const newFile = file.replace(/^(00-|0-)/, '');
+    } else if (file.endsWith('.jpg') && (file.startsWith('00-') || file.startsWith('0-') || file.startsWith('000-'))) {
+      const newFile = file.replace(/^(000-|00-|0-)/, '');
       const newPath = path.join(destDir, newFile);
       fs.copyFileSync(filePath, newPath);
     }
   });
 }
 
-copyJpgFilesToAnotherFolder('C:\\UGit\\worship_videos\\worship_video_downloads\\video\\生命河 ROLCCmedia','C:\\UGit\\worship_videos\\public\\pic');
+copyJpgFilesToAnotherFolder('C:\\UGit\\worship_videos\\worship_video_downloads\\video','C:\\UGit\\worship_videos\\public\\pic');
