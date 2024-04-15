@@ -131,7 +131,7 @@ export default {
         console.log('push');
         console.log(this.$router);
 
-        var video_file_path = this.currentPath + "/" + video.name;
+        var video_file_path = this.currentPath  + video.name;
         video_file_path = video_file_path.replace('.mp4', '');
         var video_file_path_encoded = encodeURIComponent(video_file_path);
         this.$router.push({path:`/video_player/${video_file_path_encoded}`});

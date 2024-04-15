@@ -1,25 +1,33 @@
 <template>
-  <!-- <div class="video-player"> -->
-  <!-- <div class="video-container"> -->
-  <!-- <div class="artplayer-app" ref="videoRef" :src="videoUrl" controls @play="handlePlay" @pause="handlePause"></div> -->
-  <!-- <div v-if="!isPlaying" class="play-button" @click="startPlaying">
-          <i class="fa fa-play"></i>
-        </div> -->
-  <!-- </div> -->
-  <!-- </div> -->
   <div class="video-player"></div>
+  <div class="video-grid-player">
+    <div class="video-item" v-for="video in videos" :key="video.name" @click="navigateToVideo(video)">
+      <img :src="getThumbnail(video)" alt="Video Thumbnail" class="video-thumbnail" width="200" height="150" />
+      <div class="video-info">
+        <h3 class="video-name">{{ getVideoName(video) }}</h3>
+        <!-- <p class="video-date">Created: {{ formatDate(video.created) }}</p> -->
+      </div>
+    </div>
+  </div>
 </template>
 
 
 <script>
 import Artplayer from 'artplayer';
+import axios from 'axios';
 export default {
   props: ['video'],
   data() {
     return {
       videoUrl: '', // 视频的URL
+      host: 'https://alpha.jiuxingtang.online/',
       picPathPrefix: 'https://video.jiuxingtang.online/pic/',
       videoPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
+      videos: [],
+      thumbs: [],
+      apiPath: 'api/fs/list',
+      currentPath: '/赞美/',
+      player:null
     };
   },
   created() {
@@ -31,32 +39,22 @@ export default {
     this.parseVideoInfo();
   },
   methods: {
-    startPlaying() {
-      const videoElement = this.$refs.videoRef;
-      videoElement.play();
+    
+    getThumbnail(video) {
+      var videoName = this.getVideoName(video);
+      return this.picPathPrefix + videoName + ".jpg";
     },
-    handlePlay() {
-      this.isPlaying = true;
-    },
-    handlePause() {
-      this.isPlaying = false;
+    getVideoName(video) {
+      return video.name.replace(/\.mp4$/, "");
     },
     parseVideoInfo() {
-      // 解析视频信息
-      // const videoData = this.$route.params.video;
-      // this.video = JSON.parse(videoData);
       var video_file_path = decodeURIComponent(this.$route.params.video_file_fath);
       console.log("video file path: " + video_file_path);
       this.videoUrl = this.videoPathPrefix + video_file_path + '.mp4';
       console.log("video url: " + this.videoUrl);
-      // const lastIndex = this.videoUrl.lastIndexOf('/');
-      // var thumbUrl = '';
-      // if(lastIndex > 0) {
-      //   thumbUrl = encodeURIComponent(this.picPathPrefix + this.videoUrl.substring(lastIndex + 1).replace('.mp4', '.jpg')) ;
-      // }
-
-
-      var art = new Artplayer({
+      this.currentPath = video_file_path.substring(0, video_file_path.lastIndexOf('/'));
+      this.getVideoList();
+      this.player = new Artplayer({
         container: '.video-player',
         url: this.videoUrl,
         airplay:true,
@@ -77,9 +75,49 @@ export default {
       autoPlayback: true,
       autoOrientation: true,
       });
-      // art.play();
-      console.log(art);
+
     },
+    navigateToVideo(video) 
+    {
+      var videoUrl = this.videoPathPrefix + this.currentPath + "/" + video.name;
+      console.log(videoUrl);
+      console.log(this.player);
+      this.player.url = videoUrl;
+    },
+    getVideoList()
+    {
+      const requestData = {
+        path: this.currentPath,
+        password: "",
+        page: 1,
+        per_page: 0,
+        refresh: false
+      };
+      axios.post(this.host + this.apiPath, requestData)
+        .then(response => {
+          var itemList = response.data.data.content;
+          var videos = [];
+          var thumbs = [];
+          //遍历
+          for (var i = 0; i < itemList.length; i++) {
+            //判断是否为mp4结尾
+            if (itemList[i].name.endsWith(".mp4") || itemList[i].is_dir) {
+              videos.push(itemList[i]);
+            }
+            if (itemList[i].name.endsWith(".jpg") || itemList[i].name.endsWith(".webp")) {
+              thumbs.push(itemList[i]);
+            }
+            //判断是否已
+          }
+          this.videos = videos;
+          this.thumbs = thumbs;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
+    }
 
   },
 };
@@ -92,7 +130,7 @@ export default {
   width: 100%;
   height: 250px;
   position: fixed;
-    top: 20; /* You can adjust the top, right, bottom, or left values to position it where you want */
+    top: 0; /* You can adjust the top, right, bottom, or left values to position it where you want */
     left: 0;
   /* 可根据需要设置容器高度 */
   /* height: 0; */
@@ -127,5 +165,44 @@ export default {
 .play-button i {
   font-size: 50px;
   color: #fff;
+}
+
+.video-grid-player {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 将网格分为两列，每列平均占据剩余空间 */
+  gap: 20px;
+  margin-top: 60vw;
+  padding-bottom: 20px;
+  /* 设置列间隔，根据需要进行调整 */
+}
+
+.video-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.video-info {
+  margin-top: 0px;
+  text-align: center;
+}
+
+.video-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.video-date,
+.video-size {
+  font-size: 14px;
+  margin-top: 5px;
 }
 </style>
