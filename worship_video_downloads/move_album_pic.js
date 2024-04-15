@@ -68,6 +68,9 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
       const newFile = file.replace(/^(000-|00-|0-)/, '');
       const newPath = path.join(destDir, newFile);
       fs.copyFileSync(filePath, newPath);
+    } else if(file.endsWith('.jpg')){
+      const newPath = path.join(destDir, file);
+      fs.copyFileSync(filePath, newPath);
     }
   });
 }
