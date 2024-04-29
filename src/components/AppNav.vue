@@ -5,6 +5,7 @@
       <button @click="goForward"><i class="fas fa-arrow-right"></i></button>
       <button @click="goHome"><i class="fas fa-home"></i></button>
       <button @click="share"><i class="fas fa-share"></i></button>
+      <button @click="goSearch"><i class="fas fa-search"></i></button>
     </div>
     <div class="nav-text">
       <!-- <button class="nav-button" @click="handleButtonClick">奉献支持</button> -->
@@ -24,6 +25,9 @@ export default {
     goHome() {
       // Redirect to home route
       this.$router.push('/');
+    },
+    goSearch() {
+      this.$router.push('/search');
     },
     handleButtonClick() {
       // 处理按钮点击事件

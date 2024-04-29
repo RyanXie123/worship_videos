@@ -4,6 +4,7 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import VideoPlayer from './components/VideoPlayer.vue';
 import VideoGrid from './components/VideoGrid.vue';
+import SearchPage from './components/SearchPage.vue';
 import '@fortawesome/fontawesome-free/css/all.css'
 
 const router = createRouter({
@@ -25,6 +26,11 @@ const router = createRouter({
         path:'/video_list',
         name: 'VideoGrid',
         component:VideoGrid
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: SearchPage
     },
     { path: '/:pathMatch(.*)*', component:VideoGrid } // 捕获所有未匹配的路由并重定向到主页
   ]
