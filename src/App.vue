@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <AppBar />
     <router-view></router-view>
     <AppNav />
   </div>
@@ -7,11 +8,13 @@
 
 <script>
 import AppNav from './components/AppNav.vue';
+import AppBar from './components/AppBar.vue';
 // import HelloWorld from './components/HelloWorld.vue'
 // import VideoGrid from './components/VideoGrid.vue'
 export default {
   name: 'App',
   components: {
+    AppBar,
     AppNav
   }
 }

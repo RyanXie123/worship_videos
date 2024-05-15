@@ -130,7 +130,7 @@ export default {
   width: 100%;
   height: 250px;
   position: fixed;
-    top: 0; /* You can adjust the top, right, bottom, or left values to position it where you want */
+    top: 60px; /* You can adjust the top, right, bottom, or left values to position it where you want */
     left: 0;
   /* 可根据需要设置容器高度 */
   /* height: 0; */
@@ -172,7 +172,8 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   /* 将网格分为两列，每列平均占据剩余空间 */
   gap: 20px;
-  margin-top: 60vw;
+  /* margin-top: 60vw; */
+  padding-top: 280px;
   padding-bottom: 20px;
   /* 设置列间隔，根据需要进行调整 */
 }

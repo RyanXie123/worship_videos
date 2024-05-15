@@ -80,7 +80,7 @@ export default {
 }
 
 .nav-icons button i {
-  font-size: 1.5em;
+  font-size: 1.6em;
 }
 
 .nav-text {
