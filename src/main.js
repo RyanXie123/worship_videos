@@ -5,8 +5,26 @@ import { createRouter, createWebHistory } from 'vue-router';
 import VideoPlayer from './components/VideoPlayer.vue';
 import VideoGrid from './components/VideoGrid.vue';
 import SearchPage from './components/SearchPage.vue';
+import { createStore } from 'vuex'
 import '@fortawesome/fontawesome-free/css/all.css'
-
+// 创建一个新的 store 实例
+const store = createStore({
+  state () {
+    return {
+      count: 0,
+      isShowShare: false,
+      videoUrl: '',
+    }
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    },
+    showShare(state, payload) {
+      state.isShowShare = payload.showShare
+    }
+  }
+})
 const router = createRouter({
   history: createWebHistory(),
   mode: 'history',
@@ -36,4 +54,6 @@ const router = createRouter({
   ]
 });
 
-createApp(App).use(router).mount('#app');
+const app = createApp(App).use(router).mount('#app');
+
+app.use(store);

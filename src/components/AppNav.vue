@@ -34,10 +34,12 @@ export default {
       window.location.href = 'https://qr.alipay.com/fkx123198b5yoxszv9ife12';
     },
     share() {
+      var url =  encodeURI('https://alpha.jiuxingtang.online/p/tianyi/study/赞美/水流之音圣乐团SOLSO/SOLSO 水流之音圣乐团 - 爱使我们相聚一起 02-27-2016/04-主耶稣我是真爱祢- SOLSO 水流之音圣乐团－爱使我们相聚一起 新春音乐会.mp4')
+      console.log("share---" + url)
       if (navigator.share) {
         navigator.share({
-          title: document.title,
-          url: window.location.href
+          title: "Share title",
+          url: url
         }).then(() => {
           console.log('Sharing success');
         }).catch((error) => {

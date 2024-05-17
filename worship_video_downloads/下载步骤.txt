@@ -1,3 +1,4 @@
+yt-dlp --output './video/%(uploader)s/%(playlist)s/%(title)s.%(ext)s'  -f "bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"  --write-thumbnail 
 1. 修改download.js中的url
 2. 执行node download.js
 3. 运行 simple_rename.py 

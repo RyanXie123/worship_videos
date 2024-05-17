@@ -19,7 +19,9 @@ def convert_filenames(folder_path):
             # 构建新的子文件夹路径
             new_dir_path = os.path.join(root, new_dir_name)
             # 重命名子文件夹
-            os.rename(dir_path, new_dir_path)
+            #先判断是否存在
+            if not os.path.exists(new_dir_path):
+                os.rename(dir_path, new_dir_path)
             convert_filenames(new_dir_path)
 
         # 遍历子文件
@@ -30,8 +32,10 @@ def convert_filenames(folder_path):
             new_file_name = converter.convert(file_name)
             # 构建新的文件路径
             new_file_path = os.path.join(root, new_file_name)
+            if not os.path.exists(new_file_path):
+                os.rename(file_path, new_file_path)
             # 重命名文件
-            os.rename(file_path, new_file_path)
+
 
 # 调用函数，传入要遍历的文件夹路径
 convert_filenames(folder_path)

@@ -27,7 +27,7 @@ export default {
       thumbs: [],
       apiPath: 'api/fs/list',
       currentPath: '/赞美/',
-      player:null
+      player: null
     };
   },
   created() {
@@ -39,7 +39,7 @@ export default {
     this.parseVideoInfo();
   },
   methods: {
-    
+
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
       return this.picPathPrefix + videoName + ".jpg";
@@ -57,35 +57,33 @@ export default {
       this.player = new Artplayer({
         container: '.video-player',
         url: this.videoUrl,
-        airplay:true,
+        airplay: true,
         playsInline: true,
-        autoSize:true,
+        autoSize: true,
         lock: true,
-        fullscreen:true,
-        fullscreenWeb:true,
-        pip:true,
+        fullscreen: true,
+        fullscreenWeb: true,
+        pip: true,
         autoplay: true,
         // poster: thumbUrl,
         moreVideoAttr: {
-      // @ts-ignore
-      "webkit-playsinline": true,
-      playsInline: true,
-    },
-      fastForward: true,
-      autoPlayback: true,
-      autoOrientation: true,
+          // @ts-ignore
+          "webkit-playsinline": true,
+          playsInline: true,
+        },
+        fastForward: true,
+        autoPlayback: true,
+        autoOrientation: true,
       });
 
     },
-    navigateToVideo(video) 
-    {
+    navigateToVideo(video) {
       var videoUrl = this.videoPathPrefix + this.currentPath + "/" + video.name;
       console.log(videoUrl);
       console.log(this.player);
       this.player.url = videoUrl;
     },
-    getVideoList()
-    {
+    getVideoList() {
       const requestData = {
         path: this.currentPath,
         password: "",
@@ -130,8 +128,9 @@ export default {
   width: 100%;
   height: 250px;
   position: fixed;
-    top: 60px; /* You can adjust the top, right, bottom, or left values to position it where you want */
-    left: 0;
+  top: 60px;
+  /* You can adjust the top, right, bottom, or left values to position it where you want */
+  left: 0;
   /* 可根据需要设置容器高度 */
   /* height: 0; */
   /* padding-bottom: 计算得到的百分比值(例如16:9的视频是56.25%) */

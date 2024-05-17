@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,user-scalable=no">
+    <title>Document</title>
+    <style>
+        .artplayer-app {
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.css" />
+    <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
+</head>
+
+<body>
+    <h1>Share</h1>
+    <div class="artplayer-app"></div>
+</body>
+<script>
+
+const art = new Artplayer({
+            container: '.artplayer-app',
+            url: 'https://alpha.jiuxingtang.online/d/tianyi/study/赞美/水流之音圣乐团SOLSO/SOLSO 水流之音圣乐团 - 爱使我们相聚一起 02-27-2016/04-主耶稣我是真爱祢- SOLSO 水流之音圣乐团－爱使我们相聚一起 新春音乐会.mp4',
+            airplay: true,
+            playsInline: true,
+            autoSize: true,
+            lock: true,
+            fullscreen: true,
+            fullscreenWeb: true,
+            pip: true,
+            autoplay: true,
+            moreVideoAttr: {
+                // @ts-ignore
+                "webkit-playsinline": true,
+                playsInline: true,
+            },
+            fastForward: true,
+            autoPlayback: true,
+            autoOrientation: true,
+        });
+
+
+</script>
+
+</html>

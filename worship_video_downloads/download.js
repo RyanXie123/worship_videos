@@ -25,7 +25,7 @@ try {
         const url = playlist.url;
         console.log(playlist.title);
 
-        
+        // yt-dlp --output './video/%(uploader)s/%(playlist)s/%(title)s.%(ext)s'  -f "bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"  --write-thumbnail 
         //var cmd = `yt-dlp -f 'bestaudio[ext=mp3]' --extract-audio --audio-format mp3 --add-metadata --geo-bypass -o "%(uploader)s/%(title)s.%(ext)s" "${url}"`;
         //var cmd = `yt-dlp -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b" -o "./video/%(uploader)s/%(playlist)s/%(title)s.%(ext)s" "${url}"`
         //var cmd = `yt-dlp -o "./video/%(uploader)s/%(playlist)s/%(title)s.%(ext)s" "${url}"`
