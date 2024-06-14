@@ -22,6 +22,10 @@ const store = createStore({
     },
     showShare(state, payload) {
       state.isShowShare = payload.showShare
+    },
+    setVideoUrl(state, payload) {
+      console.log("store set url :" + payload.videoUrl)
+      state.videoUrl = payload.videoUrl
     }
   }
 })
@@ -54,6 +58,6 @@ const router = createRouter({
   ]
 });
 
-const app = createApp(App).use(router).mount('#app');
+createApp(App).use(router).use(store).mount('#app');
 
-app.use(store);
+// app.use(store);

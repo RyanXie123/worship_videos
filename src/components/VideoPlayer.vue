@@ -13,6 +13,22 @@
 
 
 <script>
+window.addEventListener("flutterInAppWebViewPlatformReady", () => {
+      console.log("flutterInAppWebViewPlatformReady");
+   
+      // if (window.flutter_inappwebview) {
+      //   console.log("flutter_inappwebview exits");
+      //   window.flutter_inappwebview.callHandler('myFlutterMethod', 'Hello from Vue.js!')
+      //   .then((result) => {
+      //     // 处理来自 Flutter 的返回数据
+      //     console.log(result);
+      //   }).catch((error) => {
+      //     // 处理错误
+      //     console.error(error);
+      //   })
+      // }
+      
+});
 import Artplayer from 'artplayer';
 import axios from 'axios';
 export default {
@@ -37,9 +53,29 @@ export default {
     // 在组件挂载后，解析视频信息并获取视频的URL
     console.log("video-player mounted");
     this.parseVideoInfo();
+    // 确保 InAppWebView 已经准备好
+    console.log("window:" + window);
+    window.addEventListener("flutterInAppWebViewPlatformReady", () => {
+      console.log("flutterInAppWebViewPlatformReady");
+      this.callFlutterMethod();
+    });
   },
   methods: {
-
+    callFlutterMethod() {
+      if (window.flutter_inappwebview) {
+        console.log("flutter_inappwebview exits");
+        window.flutter_inappwebview.callHandler('myFlutterMethod', 'Hello from Vue.js!')
+        .then((result) => {
+          // 处理来自 Flutter 的返回数据
+          console.log(result);
+        }).catch((error) => {
+          // 处理错误
+          console.error(error);
+        });
+      }
+      
+      
+    },
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
       return this.picPathPrefix + videoName + ".jpg";
@@ -52,6 +88,8 @@ export default {
       console.log("video file path: " + video_file_path);
       this.videoUrl = this.videoPathPrefix + video_file_path + '.mp4';
       console.log("video url: " + this.videoUrl);
+      this.$store.commit("setVideoUrl", {videoUrl:this.videoUrl});
+
       this.currentPath = video_file_path.substring(0, video_file_path.lastIndexOf('/'));
       this.getVideoList();
       this.player = new Artplayer({
@@ -75,6 +113,17 @@ export default {
         autoPlayback: true,
         autoOrientation: true,
       });
+      if (window.flutter_inappwebview) {
+        console.log("flutter_inappwebview exits");
+        window.flutter_inappwebview.callHandler('myFlutterMethod', 'Hello from Vue.js!')
+        .then((result) => {
+          // 处理来自 Flutter 的返回数据
+          console.log(result);
+        }).catch((error) => {
+          // 处理错误
+          console.error(error);
+        })
+      }
 
     },
     navigateToVideo(video) {
@@ -82,6 +131,17 @@ export default {
       console.log(videoUrl);
       console.log(this.player);
       this.player.url = videoUrl;
+      if (window.flutter_inappwebview) {
+        console.log("flutter_inappwebview exits");
+        window.flutter_inappwebview.callHandler('myFlutterMethod', 'Hello from Vue.js!')
+        .then((result) => {
+          // 处理来自 Flutter 的返回数据
+          console.log(result);
+        }).catch((error) => {
+          // 处理错误
+          console.error(error);
+        })
+      }
     },
     getVideoList() {
       const requestData = {
