@@ -5,7 +5,7 @@ export default {
     async callApi(path, method, data) {
       try {
         const response = await axios.request({
-          url: `https://alpha.jiuxingtang.online/${path}`,
+          url: `${this.$apiPath}${path}`,
           method,
           data,
         });

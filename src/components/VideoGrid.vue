@@ -18,13 +18,10 @@ export default {
     return {
       videos: [],
       thumbs: [],
-      host: 'https://alpha.jiuxingtang.online/',
       apiPath: 'api/fs/list',
       // currentPath:'/tianyi/study/赞美/赞美之泉/讚美之泉敬拜讚美專輯(01) 讓讚美飛揚 Let Praise Arise',
       currentPath: '/赞美/',
-      indexPath: '/赞美/',
-      videoPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
-      picPathPrefix: 'https://video.jiuxingtang.online/pic/',
+      indexPath: '/赞美/'
     };
   },
   watch: {
@@ -35,6 +32,7 @@ export default {
   }
   ,
   mounted() {
+    console.log(this.$appName); // 输出：'My App'
     this.resetData();
   },
   methods: {
@@ -75,7 +73,7 @@ export default {
         refresh: false
       };
 
-      axios.post(this.host + this.apiPath, requestData)
+      axios.post(this.$apiHost + this.apiPath, requestData)
         .then(response => {
           var itemList = response.data.data.content;
           var videos = [];
@@ -106,7 +104,7 @@ export default {
     },
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
-      return this.picPathPrefix + videoName + ".jpg";
+      return this.$picPathPrefix + videoName + ".jpg";
     },
     getVideoName(video) {
       return video.name.replace(/\.mp4$/, "");

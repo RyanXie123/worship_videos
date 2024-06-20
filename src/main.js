@@ -7,6 +7,10 @@ import VideoGrid from './components/VideoGrid.vue';
 import SearchPage from './components/SearchPage.vue';
 import { createStore } from 'vuex'
 import '@fortawesome/fontawesome-free/css/all.css'
+
+
+
+
 // 创建一个新的 store 实例
 const store = createStore({
   state () {
@@ -57,7 +61,13 @@ const router = createRouter({
     { path: '/:pathMatch(.*)*', component:VideoGrid } // 捕获所有未匹配的路由并重定向到主页
   ]
 });
+const app = createApp(App);
 
-createApp(App).use(router).use(store).mount('#app');
+app.config.globalProperties.$appName = 'My App';
+
+app.config.globalProperties.$picPathPrefix = 'https://video.jiuxingtang.online/pic/';
+app.config.globalProperties.$apiHost = 'https://alpha.jiuxingtang.online/';
+app.config.globalProperties.$videoPathPrefix = 'https://alpha.jiuxingtang.online/d/tianyi/study'
+app.use(router).use(store).mount('#app');
 
 // app.use(store);

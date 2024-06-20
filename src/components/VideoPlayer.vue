@@ -36,9 +36,6 @@ export default {
   data() {
     return {
       videoUrl: '', // 视频的URL
-      host: 'https://alpha.jiuxingtang.online/',
-      picPathPrefix: 'https://video.jiuxingtang.online/pic/',
-      videoPathPrefix: 'https://alpha.jiuxingtang.online/d/tianyi/study',
       videos: [],
       thumbs: [],
       apiPath: 'api/fs/list',
@@ -78,7 +75,7 @@ export default {
     },
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
-      return this.picPathPrefix + videoName + ".jpg";
+      return this.$picPathPrefix + videoName + ".jpg";
     },
     getVideoName(video) {
       return video.name.replace(/\.mp4$/, "");
@@ -86,7 +83,12 @@ export default {
     parseVideoInfo() {
       var video_file_path = decodeURIComponent(this.$route.params.video_file_fath);
       console.log("video file path: " + video_file_path);
-      this.videoUrl = this.videoPathPrefix + video_file_path + '.mp4';
+      if(video_file_path.endsWith(".mp4")){
+        this.videoUrl = this.$videoPathPrefix + video_file_path;
+      }
+      else{
+        this.videoUrl = this.$videoPathPrefix + video_file_path + '.mp4';
+      }
       console.log("video url: " + this.videoUrl);
       this.$store.commit("setVideoUrl", {videoUrl:this.videoUrl});
 
@@ -115,10 +117,11 @@ export default {
       });
       if (window.flutter_inappwebview) {
         console.log("flutter_inappwebview exits");
-        window.flutter_inappwebview.callHandler('myFlutterMethod', 'Hello from Vue.js!')
+        window.flutter_inappwebview.callHandler('hasBought', 'Hello from Vue.js!')
         .then((result) => {
           // 处理来自 Flutter 的返回数据
-          console.log(result);
+          console.log("html+hasBought result:" + result);
+          
         }).catch((error) => {
           // 处理错误
           console.error(error);
@@ -127,13 +130,13 @@ export default {
 
     },
     navigateToVideo(video) {
-      var videoUrl = this.videoPathPrefix + this.currentPath + "/" + video.name;
+      var videoUrl = this.$videoPathPrefix + this.currentPath + "/" + video.name;
       console.log(videoUrl);
       console.log(this.player);
       this.player.url = videoUrl;
       if (window.flutter_inappwebview) {
         console.log("flutter_inappwebview exits");
-        window.flutter_inappwebview.callHandler('myFlutterMethod', 'Hello from Vue.js!')
+        window.flutter_inappwebview.callHandler('hasBought', 'Hello from Vue.js!')
         .then((result) => {
           // 处理来自 Flutter 的返回数据
           console.log(result);
@@ -151,7 +154,7 @@ export default {
         per_page: 0,
         refresh: false
       };
-      axios.post(this.host + this.apiPath, requestData)
+      axios.post(this.$apiHost + this.apiPath, requestData)
         .then(response => {
           var itemList = response.data.data.content;
           var videos = [];
