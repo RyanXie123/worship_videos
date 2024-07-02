@@ -4,6 +4,7 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import VideoPlayer from './components/VideoPlayer.vue';
 import VideoGrid from './components/VideoGrid.vue';
+import HomePage from './components/HomePage.vue';
 import SearchPage from './components/SearchPage.vue';
 import { createStore } from 'vuex'
 import '@fortawesome/fontawesome-free/css/all.css'
@@ -46,7 +47,7 @@ const router = createRouter({
     {
       path: '/',
       name:'home',
-      component:VideoGrid
+      component:HomePage
     },
     {
         path:'/video_list',
@@ -66,8 +67,9 @@ const app = createApp(App);
 app.config.globalProperties.$appName = 'My App';
 
 app.config.globalProperties.$picPathPrefix = 'https://video.jiuxingtang.online/pic/';
-app.config.globalProperties.$apiHost = 'https://alpha.jiuxingtang.online/';
-app.config.globalProperties.$videoPathPrefix = 'https://alpha.jiuxingtang.online/d/tianyi/study'
+app.config.globalProperties.$apiHost = 'http://router.xieru.fun:2082/';
+app.config.globalProperties.$videoPathPrefix = 'http://router.xieru.fun:2082/d/sandisk/study'
+app.config.globalProperties.$searchIgnorePath = '/sandisk/study';
 app.use(router).use(store).mount('#app');
 
 // app.use(store);

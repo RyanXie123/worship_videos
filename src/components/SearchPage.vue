@@ -53,7 +53,7 @@ export default {
     async search() {
       this.addHistoryItem(this.searchQuery);
       try {
-        const response = await axios.post('http://sh.xieru.fun:5244/api/fs/search', {
+        const response = await axios.post(this.$apiHost + 'api/fs/search', {
           parent: '/赞美',
           keywords: this.searchQuery,
           scope: 2,
@@ -105,7 +105,7 @@ export default {
     navigateToVideo(video) {
       var video_file_path = video.parent + '/' + video.name;
       video_file_path = video_file_path.replace('.mp4', '');
-      video_file_path = video_file_path.replace('/tianyi/study', '');
+      video_file_path = video_file_path.replace(this.$searchIgnorePath, '');
       console.log("video file path: " + video_file_path);
       var video_file_path_encoded = encodeURIComponent(video_file_path);
 

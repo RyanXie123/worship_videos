@@ -1,82 +1,125 @@
 <template>
-    <div class="navbar">
-      <div class="navbar-left" @click="goHome">
-        <img src="logo.jpg" alt="Logo" class="navbar-logo">
-        <span class="navbar-title">赞美园</span>
-      </div>
-      <div class="navbar-right">
-        <!-- <button class="navbar-button">
-          <img src="icon1.png" alt="功能按钮1" class="navbar-icon">
-        </button>
-        <button class="navbar-button">
-          <img src="icon2.png" alt="功能按钮2" class="navbar-icon">
-        </button>
-        <button class="navbar-button">
-          <img src="icon3.png" alt="功能按钮3" class="navbar-icon">
-        </button> -->
-      </div>
+    <div class="tabbar">
+    <div 
+      v-for="tab in tabs" 
+      :key="tab" 
+      :class="['tab', { active: tab === activeTab }]" 
+      @click="selectTab(tab)"
+    >
+      {{ tab }}
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'AppBar',
-    methods: {
-      goHome() {
-        // Redirect to home route
-        this.$router.push('/');
-      }
+  </div>
+</template>
+
+<script>
+// import Sidebar from './SideBar.vue';
+
+export default {
+  name: 'AppBar',
+  components: {
+  },
+  props: {
+    tabs: {
+      type: Array,
+      required: true,
+    },
+    defaultTab: {
+      type: String,
+      default: '',
+    }
+  },
+  data() {
+    return {
+      isSidebarOpen: false,
+      activeTab: this.defaultTab || this.tabs[0]
+    };
+  },
+  methods: {
+    goHome() {
+      // Redirect to home route
+      this.$router.push('/');
+    },
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen;
+    },
+    selectTab(tab) {
+      this.activeTab = tab;
+      this.$emit('update:tab', tab);
     }
   }
-  </script>
+}
+</script>
+
+<style scoped>
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   
-  <style>
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-  }
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-logo {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
-  
-  .navbar-title {
-    font-size: 15px;
-  }
-  
-  .navbar-right {
-    display: flex;
-  }
-  
-  .navbar-button {
-    margin-left: 10px;
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .navbar-icon {
-    width: 20px;
-    height: 20px;
-  }
-  </style>
+  padding: 10px;
+}
+.tabbar {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 999;
+  background-color: white;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-bottom: 2px solid #007BFF;
+  color: #007BFF;
+}
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.navbar-title {
+  font-size: 15px;
+}
+
+.navbar-right {
+  display: flex;
+}
+
+.toggle-button {
+  font-size: 30px;
+  /* background-color: #333; */
+  color: #333;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  z-index: 1001; /* Ensure button is on top */
+}
+
+.sidebar-wrapper {
+  position: relative;
+  z-index: 999; /* Ensure sidebar is below the button */
+}
+
+/* 其他样式可以根据需要调整 */
+</style>

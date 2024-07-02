@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <AppBar />
+    <!-- <Sidebar /> -->
+
     <router-view></router-view>
     <AppNav />
   </div>
@@ -8,15 +9,25 @@
 
 <script>
 import AppNav from './components/AppNav.vue';
-import AppBar from './components/AppBar.vue';
+
+// import Sidebar from './components/SideBar.vue';
 // import HelloWorld from './components/HelloWorld.vue'
 // import VideoGrid from './components/VideoGrid.vue'
 export default {
   name: 'App',
   components: {
-    AppBar,
-    AppNav
-  }
+    AppNav,
+    // Sidebar
+  },
+  data() {
+    return {
+    };
+  },
+  methods: {
+    handleTabChange(tab) {
+      this.activeTab = tab;
+    },
+  },
 }
 </script>
 
@@ -27,6 +38,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>

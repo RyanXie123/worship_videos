@@ -191,7 +191,7 @@ export default {
   width: 100%;
   height: 250px;
   position: fixed;
-  top: 60px;
+  top: 0px;
   /* You can adjust the top, right, bottom, or left values to position it where you want */
   left: 0;
   /* 可根据需要设置容器高度 */

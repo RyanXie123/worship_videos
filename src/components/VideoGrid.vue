@@ -24,10 +24,20 @@ export default {
       indexPath: '/赞美/'
     };
   },
+  props: {
+    currentPropsPath:{
+      type: String,
+      default: '/赞美/'
+    }
+  },
   watch: {
     '$route': {
       handler: 'resetData',
       immediate: true
+    },
+    currentPropsPath(newPath) {
+      console.log(newPath);
+      this.resetData();
     }
   }
   ,
@@ -52,7 +62,7 @@ export default {
         this.currentPath = this.diyDecodePaht(this.$route.query.folder_path_base64);
         console.log(this.currentPath);
       } else {
-        this.currentPath = this.indexPath;
+        this.currentPath = this.currentPropsPath;
       }
 
       const regex = /\/([^/]+)\/$/;
