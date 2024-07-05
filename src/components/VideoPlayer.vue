@@ -134,6 +134,7 @@ export default {
       console.log(videoUrl);
       console.log(this.player);
       this.player.url = videoUrl;
+      this.$store.commit("setVideoUrl", {videoUrl:videoUrl});
       if (window.flutter_inappwebview) {
         console.log("flutter_inappwebview exits");
         window.flutter_inappwebview.callHandler('hasBought', 'Hello from Vue.js!')

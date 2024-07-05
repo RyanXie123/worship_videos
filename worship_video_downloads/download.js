@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
-const command = 'yt-dlp --flat-playlist --skip-download --print-json "https://www.youtube.com/@solso2866/playlists"';
+const command = 'yt-dlp --flat-playlist --skip-download --print-json "https://www.youtube.com/@xiaomincanaanhymns/playlists"';
 const options = { encoding: 'utf8' };
 const { exec } = require('child_process');
 try {

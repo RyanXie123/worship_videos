@@ -65,10 +65,16 @@ const router = createRouter({
 const app = createApp(App);
 
 app.config.globalProperties.$appName = 'My App';
+if (window.location.protocol === 'https:') {
+  app.config.globalProperties.$apiHost = 'https://router.xieru.fun:5245/';
+  app.config.globalProperties.$videoPathPrefix = 'https://router.xieru.fun:5245/d/sandisk/study'
+} else {
+  app.config.globalProperties.$apiHost = 'http://router.xieru.fun:2082/';
+  app.config.globalProperties.$videoPathPrefix = 'http://router.xieru.fun:2082/d/sandisk/study'
+}
 
 app.config.globalProperties.$picPathPrefix = 'https://video.jiuxingtang.online/pic/';
-app.config.globalProperties.$apiHost = 'http://router.xieru.fun:2082/';
-app.config.globalProperties.$videoPathPrefix = 'http://router.xieru.fun:2082/d/sandisk/study'
+app.config.globalProperties.$shareHtml = 'http://video.jiuxingtang.online/share.html';
 app.config.globalProperties.$searchIgnorePath = '/sandisk/study';
 app.use(router).use(store).mount('#app');
 
