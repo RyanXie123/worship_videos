@@ -1,2 +1,2 @@
 tcb hosting deploy -e worship-video-1gjkroeub13df34f
-cloudbase framework deploy -e worship-video-1gjkroeub13df34f
+tcb framework deploy -e worship-video-1gjkroeub13df34f

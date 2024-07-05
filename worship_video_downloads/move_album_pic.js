@@ -28,18 +28,18 @@ function convertWebpToJpg(webpPath, jpgPath) {
         resizeWidth = 600;
       }
 
-      sharp(webpPath)
+      return sharp(webpPath)
         .resize(resizeWidth, null)
-        .toFile(jpgPath, (err, info) => {
-          if (err) {
-            console.error('转换失败', err);
-          } else {
-            console.log('转换完成');
-          }
-        });
+        .toFormat('jpeg')
+        .toFile(jpgPath);
+    })
+    .then(info => {
+      // console.log('转换完成', info);
     })
     .catch(err => {
-      console.error('获取图像元数据失败', err);
+      
+      console.error('转换失败', err);
+      console.log(webpPath);
     });
 }
 function copyJpgFilesToAnotherFolder(dir,destDir)
@@ -47,6 +47,7 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
   var files = fs.readdirSync(dir);
   fs.readdirSync(dir).forEach(file => {
     const filePath = path.join(dir, file);
+    console.log("filePath:"+filePath)
     const stats = fs.statSync(filePath);
     if (stats.isDirectory()) {
       // for (let i = 0; i < files.length; i++) {
@@ -59,11 +60,17 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
       //     fs.copyFileSync(filePath, newPath);
       //   }
       // }
+      console.log('文件夹：' + filePath);
       copyJpgFilesToAnotherFolder(filePath,destDir);
     } else if (file.endsWith('.webp')) {
       const newFile = file.replace('.webp', '.jpg');
       const newPath = path.join(destDir, newFile);
-      convertWebpToJpg(filePath, newPath);
+      try {
+        convertWebpToJpg(filePath, newPath);
+      } catch (err) {
+        console.error('处理文件时出错:', filePath, err);
+      }
+      
     } else if (file.endsWith('.jpg') && (file.startsWith('00-') || file.startsWith('0-') || file.startsWith('000-'))) {
       const newFile = file.replace(/^(000-|00-|0-)/, '');
       const newPath = path.join(destDir, newFile);
@@ -75,4 +82,4 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
   });
 }
 
-copyJpgFilesToAnotherFolder('C:\\UGit\\worship_videos\\worship_video_downloads\\video','C:\\UGit\\worship_videos\\public\\pic');
+copyJpgFilesToAnotherFolder('video/小敏迦南诗歌','../public/pic');
