@@ -4,7 +4,7 @@
     <div class="video-item" v-for="video in videos" :key="video.name" @click="navigateToVideo(video)">
       <img :src="getThumbnail(video)" alt="Video Thumbnail" class="video-thumbnail" width="200" height="150" />
       <div class="video-info">
-        <h3 class="video-name">{{ getVideoName(video) }}</h3>
+        <h3 class="video-name">{{ getVideoShowName(video) }}</h3>
         <!-- <p class="video-date">Created: {{ formatDate(video.created) }}</p> -->
       </div>
     </div>
@@ -74,20 +74,25 @@ export default {
       
     },
     getThumbnail(video) {
-      var videoName = this.getVideoName(video);
+      var videoName = encodeURIComponent(this.getVideoName(video));
       return this.$picPathPrefix + videoName + ".jpg";
     },
     getVideoName(video) {
       return video.name.replace(/\.mp4$/, "");
     },
+    getVideoShowName(video) {
+      var videoName = this.getVideoName(video);
+      return videoName.replace(/^\d+-/, '');
+    },
     parseVideoInfo() {
       var video_file_path = decodeURIComponent(this.$route.params.video_file_fath);
       console.log("video file path: " + video_file_path);
+
       if(video_file_path.endsWith(".mp4")){
-        this.videoUrl = this.$videoPathPrefix + video_file_path;
+        this.videoUrl = this.$videoPathPrefix + encodeURIComponent(video_file_path);
       }
       else{
-        this.videoUrl = this.$videoPathPrefix + video_file_path + '.mp4';
+        this.videoUrl = this.$videoPathPrefix + encodeURIComponent(video_file_path) + '.mp4';
       }
       console.log("video url: " + this.videoUrl);
       this.$store.commit("setVideoUrl", {videoUrl:this.videoUrl});
@@ -130,7 +135,8 @@ export default {
 
     },
     navigateToVideo(video) {
-      var videoUrl = this.$videoPathPrefix + this.currentPath + "/" + video.name;
+      var path = encodeURIComponent(this.currentPath + "/" + video.name);
+      var videoUrl = this.$videoPathPrefix + path;
       console.log(videoUrl);
       console.log(this.player);
       this.player.url = videoUrl;
@@ -148,6 +154,10 @@ export default {
       }
     },
     getVideoList() {
+      if(this.currentPath == "")
+      {
+        return;
+      }
       const requestData = {
         path: this.currentPath,
         password: "",

@@ -66,7 +66,10 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
       const newFile = file.replace('.webp', '.jpg');
       const newPath = path.join(destDir, newFile);
       try {
-        convertWebpToJpg(filePath, newPath);
+        //判断文件大小大于 1KB
+        if (fs.statSync(filePath).size > 1024) {
+          convertWebpToJpg(filePath, newPath);
+        }
       } catch (err) {
         console.error('处理文件时出错:', filePath, err);
       }
@@ -82,4 +85,4 @@ function copyJpgFilesToAnotherFolder(dir,destDir)
   });
 }
 
-copyJpgFilesToAnotherFolder('video/小敏迦南诗歌','../public/pic');
+copyJpgFilesToAnotherFolder('video/Roni Songbook','../public/pic');

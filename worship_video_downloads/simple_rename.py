@@ -1,9 +1,9 @@
 import os
 import opencc
-from PIL import Image
+# from PIL import Image
 # 定义要处理的文件夹路径
 # folder_path = 'C:\\UGit\\worship_videos\\worship_video_downloads\\video'
-folder_path = 'worship_videos/worship_video_downloads/video'
+folder_path = '/Users/xieru/projects/worship_videos/worship_video_downloads/video'
 # 创建 OpenCC 实例，用于繁简体转换
 converter = opencc.OpenCC('tw2s')
 

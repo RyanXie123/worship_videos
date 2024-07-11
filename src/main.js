@@ -73,7 +73,8 @@ if (window.location.protocol === 'https:') {
   app.config.globalProperties.$videoPathPrefix = 'http://router.xieru.fun:2082/d/sandisk/study'
 }
 
-app.config.globalProperties.$picPathPrefix = 'https://video.jiuxingtang.online/pic/';
+// app.config.globalProperties.$picPathPrefix = 'https://video.jiuxingtang.online/pic/';
+app.config.globalProperties.$picPathPrefix = '/pic/';
 app.config.globalProperties.$shareHtml = 'http://video.jiuxingtang.online/share.html';
 app.config.globalProperties.$searchIgnorePath = '/sandisk/study';
 app.use(router).use(store).mount('#app');

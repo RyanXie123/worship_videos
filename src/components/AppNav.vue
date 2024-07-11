@@ -44,14 +44,16 @@ export default {
       window.location.href = 'https://qr.alipay.com/fkx123198b5yoxszv9ife12';
     },
     share() {
-      var videoUrl = this.$store.state.videoUrl;
+      var videoUrl = decodeURIComponent(this.$store.state.videoUrl);
+      console.log("vidouUrl" + videoUrl)
       const pathArray =  videoUrl.split('/');
       const fileName = pathArray[pathArray.length - 1];
       console.log("share--- fileName" + fileName)
-      var url = encodeURI(this.$store.state.videoUrl).replace(this.$apiHost,'');
+      var url = videoUrl.replace(this.$apiHost,'');
       var shareUrl = this.$shareHtml + "?file=" + url;
       // var url =  encodeURI('https://alpha.jiuxingtang.online/p/tianyi/study/赞美/水流之音圣乐团SOLSO/SOLSO 水流之音圣乐团 - 爱使我们相聚一起 02-27-2016/04-主耶稣我是真爱祢- SOLSO 水流之音圣乐团－爱使我们相聚一起 新春音乐会.mp4')
       console.log("share---" + shareUrl)
+      console.log(shareUrl)
       if (navigator.share) {
         navigator.share({
           title: fileName,

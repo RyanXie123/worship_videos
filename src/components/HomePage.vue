@@ -1,5 +1,5 @@
 <template>
-    <AppBar  :tabs="tabs" @update:tab="handleTabChange"/>
+    <AppBar  :tabs="tabs" @update:tab="handleTabChange" :defaultTab="activeTab"/>
     <VideoGrid v-if="!showFav" class="video-grid"  :currentPropsPath="currentPropsPath"/>
     <FavoritePage v-if="showFav" class="video-grid" />
 </template>
@@ -23,9 +23,17 @@ export default {
             showFav: false
         };
     },
+    created() {
+        const savedTab = localStorage.getItem('activeTab');
+        if (savedTab) {
+            this.activeTab = savedTab;
+            this.handleTabChange(savedTab);
+        }
+    },
     methods: {
         handleTabChange(tab) {
             this.activeTab = tab;
+            localStorage.setItem('activeTab', tab);
             if (tab === '推荐') {
                 this.showFav = false;
                 this.currentPropsPath = '/赞美/推荐/';

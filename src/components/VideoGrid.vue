@@ -3,7 +3,7 @@
     <div class="video-item" v-for="video in videos" :key="video.name" @click="navigateToVideo(video)">
       <img :src="getThumbnail(video)" alt="Video Thumbnail" class="video-thumbnail" width="200" height="150" />
       <div class="video-info">
-        <h3 class="video-name">{{ getVideoName(video) }}</h3>
+        <h3 class="video-name">{{ getVideoShowName(video) }}</h3>
         <!-- <p class="video-date">Created: {{ formatDate(video.created) }}</p> -->
       </div>
     </div>
@@ -114,10 +114,20 @@ export default {
     },
     getThumbnail(video) {
       var videoName = this.getVideoName(video);
-      return this.$picPathPrefix + videoName + ".jpg";
+      if(videoName == "小敏迦南诗歌")
+      {
+        return "https://worship-video-1gjkroeub13df34f-1252150594.tcloudbaseapp.com/pic/123.jpg";
+      }
+      videoName = encodeURIComponent(videoName);
+      var url = this.$picPathPrefix + videoName + ".jpg";
+      return url;
     },
     getVideoName(video) {
       return video.name.replace(/\.mp4$/, "");
+    },
+    getVideoShowName(video) {
+      var videoName = this.getVideoName(video);
+      return videoName.replace(/^\d+-/, '');
     },
     diyEncodePath(path) {
       return encodeURIComponent(path.replaceAll('/', '___').replaceAll(' ', 'xxx'));
